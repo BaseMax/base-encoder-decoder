@@ -30,6 +30,8 @@ def encode_command(args):
         
         # Get format
         format = get_encoding_format(args.format)
+        if format is None:
+            raise ValueError(f"Invalid encoding format: {args.format}")
         
         # Encode
         result = BaseCodec.encode(data, format)
@@ -115,6 +117,9 @@ def convert_command(args):
         from_format = get_encoding_format(args.from_format) if args.from_format != 'auto' else None
         to_format = get_encoding_format(args.to_format)
         
+        if to_format is None:
+            raise ValueError(f"Invalid target encoding format: {args.to_format}")
+        
         # Convert
         result = BaseCodec.convert(data, from_format, to_format)
         
@@ -137,6 +142,8 @@ def validate_command(args):
         
         # Get format
         format = get_encoding_format(args.format)
+        if format is None:
+            raise ValueError(f"Invalid encoding format: {args.format}")
         
         # Validate
         is_valid = BaseCodec.is_valid(data, format)
